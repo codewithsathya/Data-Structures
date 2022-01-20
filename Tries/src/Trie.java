@@ -26,6 +26,10 @@ public class Trie {
 		public Node getChild(char ch){
 			return children.get(ch);
 		}
+
+		public Node[] getChildren(){
+			return children.values().toArray(new Node[0]);
+		}
 	}
 
 	private Node root = new Node(' ');
@@ -52,5 +56,17 @@ public class Trie {
 			current = current.getChild(ch);
 		}
 		return current.isEndOfWord;
+	}
+
+	public void traverse(){
+		traverse(root);
+	}
+
+	private void traverse(Node node){
+		// pre order traversal
+		System.out.println(node.value);
+		for(Node current : node.getChildren()){
+			traverse(current);
+		}
 	}
 }

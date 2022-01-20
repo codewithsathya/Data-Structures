@@ -3,8 +3,6 @@ public class App {
         Trie trie = new Trie();
         trie.insert("boy");
         trie.insert("book");
-        System.out.println(trie.contains("boy"));
-        System.out.println(trie.contains("book"));
-        System.out.println(trie.contains(""));
+        trie.traverse();
     }
 }
