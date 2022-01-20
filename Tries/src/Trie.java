@@ -63,10 +63,10 @@ public class Trie {
 	}
 
 	private void traverse(Node node){
-		// pre order traversal
-		System.out.println(node.value);
 		for(Node current : node.getChildren()){
 			traverse(current);
 		}
+		// post order traversal
+		System.out.println(node.value);
 	}
 }
