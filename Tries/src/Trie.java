@@ -14,6 +14,18 @@ public class Trie {
 		public String toString(){
 			return "value=" + value;
 		}
+
+		public boolean hasChild(char ch){
+			return children.containsKey(ch);
+		}
+
+		public void addChild(char ch){
+			children.put(ch, new Node(ch));
+		}
+
+		public Node getChild(char ch){
+			return children.get(ch);
+		}
 	}
 
 	private Node root = new Node(' ');
@@ -21,10 +33,10 @@ public class Trie {
 	public void insert(String word){
 		Node current = root;
 		for(char ch : word.toCharArray()){
-			if(current.children.get(ch) == null){
-				current.children.put(ch, new Node(ch));
+			if(!current.hasChild(ch)){
+				current.addChild(ch);
 			}
-			current = current.children.get(ch);
+			current = current.getChild(ch);
 		}
 		current.isEndOfWord = true;
 	}
