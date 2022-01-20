@@ -1,4 +1,16 @@
-public class Temp {
+public class MaxHeap {
+	public static boolean isMaxHeap(int[] arr){
+		int len = arr.length;
+		int lastParentIndex = (2 * len - 2) / 2;
+		for(int i = 0; i <= lastParentIndex; i++){
+			if(2 * i + 1 < len && arr[2 * i + 1] > arr[i])
+				return false;
+			if(2 * i + 2 < len && arr[2 * i + 2] > arr[i])
+				return false;
+		}
+		return true;
+	}
+
 	static void heapify(int[] arr) {
 		int len = arr.length;
 		int lastParentIndex = len / 2 - 1;
