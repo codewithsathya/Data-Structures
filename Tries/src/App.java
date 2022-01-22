@@ -3,6 +3,10 @@ public class App {
         Trie trie = new Trie();
         trie.insert("boy");
         trie.insert("book");
-        trie.traverse();
+        trie.insert("car");
+        trie.insert("cat");
+        trie.insert("cargo");
+        trie.insert("careful");
+        System.out.println(trie.findWords(null));
     }
 }

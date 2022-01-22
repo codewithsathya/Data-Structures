@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import java.util.*;
 
 public class Trie {
 	private class Node{
@@ -30,6 +30,14 @@ public class Trie {
 		public Node[] getChildren(){
 			return children.values().toArray(new Node[0]);
 		}
+
+		public boolean hasChildren(){
+			return !children.isEmpty();
+		}
+
+		public void removeChild(char ch){
+			children.remove(ch);
+		}
 	}
 
 	private Node root = new Node(' ');
@@ -58,6 +66,60 @@ public class Trie {
 		return current.isEndOfWord;
 	}
 
+	public void remove(String word){
+		if(word == null) return;
+		remove(root, word, 0);
+	}
+
+	private void remove(Node node, String word, int index){
+		if(index == word.length()){
+			node.isEndOfWord = false;
+			return;
+		}
+		char ch = word.charAt(index);
+		Node child = node.getChild(ch);
+		if(child == null) return;
+
+		remove(child, word, index + 1);
+		if(!child.hasChildren() && !child.isEndOfWord){
+			child.removeChild(ch);
+		}
+	}
+
+	public List<String> findWords(String prefix){
+		List<String> list = new ArrayList<>();
+		Node lastNode = getLastNodeOf(prefix);
+		findWords(lastNode, prefix, list);
+		return list;
+	}
+	
+	private void findWords(Node node, String prefix, List<String> list){
+		if(node == null){
+			return;
+		}
+
+		if(node.isEndOfWord){
+			list.add(prefix);
+		}
+
+		for(Node child: node.getChildren()){
+			findWords(child, prefix + child.value, list);
+		}
+	}
+
+	private Node getLastNodeOf(String prefix){
+		if(prefix == null) return null;
+		Node current = root;
+		for(char ch : prefix.toCharArray()){
+			Node child = current.getChild(ch);
+			if(child == null){
+				return null;
+			}
+			current = child;
+		}
+		return current;
+	}
+	
 	public void traverse(){
 		traverse(root);
 	}
