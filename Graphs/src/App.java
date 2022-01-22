@@ -1,19 +1,17 @@
 public class App {
     public static void main(String[] args) throws Exception {
         Graph graph = new Graph();
-        graph.addNode("Sathya");
-        graph.addNode("Ram");
-        graph.addNode("Madhav");
-        graph.addNode("Nikhilesh");
-        graph.addNode("Teja");
-        graph.addEdge("Sathya", "Ram");
-        graph.addEdge("Madhav", "Sathya");
-        graph.addEdge("Teja", "Sathya");
-        graph.addEdge("Ram", "Nikhilesh");
-        graph.addEdge("Teja", "Ram");
-        graph.addEdge("Sathya", "Madhav");
-        graph.removeNode("Sathya");
-        graph.removeEdge("Ram", "Nikhilesh");
+        graph.addNode("A");
+        graph.addNode("B");
+        graph.addNode("C");
+        graph.addNode("D");
+        
+        graph.addEdge("A", "B");
+        graph.addEdge("B", "C");
+        graph.addEdge("C", "D");
+        graph.addEdge("D", "A");
+        graph.addEdge("B", "D");
         graph.print();
+        graph.traverse("A");
     }
 }

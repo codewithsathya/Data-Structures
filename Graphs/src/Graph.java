@@ -1,8 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 public class Graph {
 	private class Node{
 		private String label;
@@ -60,6 +56,43 @@ public class Graph {
 			List<Node> targets = adjacencyList.get(source);
 			if(!targets.isEmpty()){
 				System.out.println(source + " is connected to " + targets);
+			}
+		}
+	}
+
+	public void traverseDepthFirst(String root){
+		Node node = nodes.get(root);
+		if(node == null)
+			return;
+		traverseDepthFirst(node, new HashSet<>());
+	}
+
+	private void traverseDepthFirst(Node node, Set<Node> visited){
+		System.out.println(node.label);
+		visited.add(node);
+		for(Node n : adjacencyList.get(node)){
+			if(!visited.contains(n)){
+				traverseDepthFirst(n, visited);
+			}
+		}
+	}
+
+	public void traverse(String root){
+		Node node = nodes.get(root);
+		if(node == null){
+			return;
+		}
+		Stack<Node> stack = new Stack<>();
+		Set<Node> visited = new HashSet<>();
+		stack.push(node);
+		while(!stack.isEmpty()){
+			Node current = stack.pop();
+			if(!visited.contains(current)){
+				System.out.println(current.label);
+				visited.add(current);
+				for(Node neighbour : adjacencyList.get(current)){
+					stack.push(neighbour);
+				}
 			}
 		}
 	}
