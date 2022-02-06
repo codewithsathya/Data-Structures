@@ -64,4 +64,47 @@ public class WeightedGraph{
 			}
 		}
 	}
+
+	private class NodeEntry{
+		Node node;
+		int priority;
+		NodeEntry(Node node, int priority){
+			this.node = node;
+			this.priority = priority;
+		}
+	}
+
+	public int findShortestDistance(String from, String to){
+		Node fromNode = nodes.get(from);
+		Node toNode = nodes.get(to);
+		if(fromNode == null){
+			throw new IllegalArgumentException();
+		}
+		if(toNode == null){
+			throw new IllegalArgumentException();
+		}
+		PriorityQueue<NodeEntry> queue = new PriorityQueue<>(Comparator.comparingInt(ne -> ne.priority));
+		Map<Node, Integer> distances = new HashMap<>();
+		Map<Node, Node> previous = new HashMap<>();
+		distances.put(fromNode, 0);
+		for(Node node: nodes.values()){
+			distances.putIfAbsent(node, Integer.MAX_VALUE);
+		}
+		Set<Node> visited = new HashSet<>();
+		queue.add(new NodeEntry(fromNode, 0));
+
+		while(!queue.isEmpty()){
+			Node first = queue.remove().node;
+			if(visited.contains(first)) continue;
+			for(Edge edge: first.getEdges()){
+				if(distances.get(edge.from) + edge.weight < distances.get(edge.to)){
+					distances.put(edge.to, distances.get(edge.from) + edge.weight);
+					previous.put(edge.to, edge.from);
+					queue.add(new NodeEntry(edge.to, edge.weight));
+				}
+			}
+			visited.add(first);
+		}
+		return distances.get(toNode);
+	}
 }

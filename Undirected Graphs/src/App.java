@@ -5,9 +5,13 @@ public class App {
         graph.addNode("C");
         graph.addNode("B");
         graph.addNode("D");
-        graph.addEdge("B", "C", 4);
-        graph.addEdge("A", "B", 8);
-        graph.addEdge("D", "C", 9);
-        graph.print();
+        graph.addNode("E");
+        graph.addEdge("A", "B", 3);
+        graph.addEdge("A", "D", 2);
+        graph.addEdge("A", "C", 4);
+        graph.addEdge("C", "D", 1);
+        graph.addEdge("B", "E", 1);
+        graph.addEdge("D", "E", 5);
+        System.out.println(graph.findShortestDistance("C", "E"));
     }
 }
