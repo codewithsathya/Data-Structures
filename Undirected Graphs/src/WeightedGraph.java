@@ -3,8 +3,17 @@ import java.util.*;
 public class WeightedGraph{
 	private class Node{
 		private String label;
+		private List<Edge> edges = new ArrayList<>();
 		Node(String label){
 			this.label = label;
+		}
+
+		public void addEdge(Node to, int weight){
+			edges.add(new Edge(this, to, weight));
+		}
+
+		public List<Edge> getEdges(){
+			return edges;
 		}
 
 		@Override
@@ -30,12 +39,9 @@ public class WeightedGraph{
 	}
 
 	Map<String, Node> nodes = new HashMap<>();
-	Map<Node, List<Edge>> adjacencyList = new HashMap<>();
 
 	public void addNode(String label){
-		Node node = new Node(label);
-		nodes.putIfAbsent(label, node);
-		adjacencyList.putIfAbsent(node, new ArrayList<>());
+		nodes.putIfAbsent(label, new Node(label));
 	}
 
 	public void addEdge(String from, String to, int weight){
@@ -45,14 +51,14 @@ public class WeightedGraph{
 			throw new IllegalArgumentException();
 		if(toNode == null)
 			throw new IllegalArgumentException();
-		
-		adjacencyList.get(fromNode).add(new Edge(fromNode, toNode, weight));
-		adjacencyList.get(toNode).add(new Edge(toNode, fromNode, weight));
+
+		fromNode.addEdge(toNode, weight);
+		toNode.addEdge(fromNode, weight);
 	}
 
 	public void print(){
 		for(Node node: nodes.values()){
-			List<Edge> edges = adjacencyList.get(node);
+			List<Edge> edges = node.getEdges();
 			if(!edges.isEmpty()){
 				System.out.println(node + " is connected to " + edges);
 			}
