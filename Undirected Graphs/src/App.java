@@ -10,8 +10,8 @@ public class App {
         graph.addEdge("A", "D", 2);
         graph.addEdge("A", "C", 4);
         graph.addEdge("C", "D", 1);
-        graph.addEdge("B", "E", 1);
+        graph.addEdge("B", "E", 9);
         graph.addEdge("D", "E", 5);
-        System.out.println(graph.findShortestDistance("C", "E"));
+        graph.printShortestPath("A", "E");
     }
 }
