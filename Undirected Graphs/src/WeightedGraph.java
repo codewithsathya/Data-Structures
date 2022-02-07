@@ -3,18 +3,18 @@ import java.util.*;
 public class WeightedGraph {
 	private class Node {
 		private String label;
-		private List<Edge> edges = new ArrayList<>();
+		private Map<Node, Edge> edges = new HashMap<>();
 
 		Node(String label) {
 			this.label = label;
 		}
 
 		public void addEdge(Node to, int weight) {
-			edges.add(new Edge(this, to, weight));
+			edges.put(to, new Edge(this, to, weight));
 		}
 
-		public List<Edge> getEdges() {
-			return edges;
+		public Collection<Edge> getEdges() {
+			return edges.values();
 		}
 
 		@Override
@@ -60,7 +60,7 @@ public class WeightedGraph {
 
 	public void print() {
 		for (Node node : nodes.values()) {
-			List<Edge> edges = node.getEdges();
+			Collection<Edge> edges = node.getEdges();
 			if (!edges.isEmpty()) {
 				System.out.println(node + " is connected to " + edges);
 			}

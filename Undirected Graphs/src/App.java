@@ -1,17 +1,12 @@
 public class App {
     public static void main(String[] args) throws Exception {
         WeightedGraph graph = new WeightedGraph();
-        graph.addNode("A");
-        graph.addNode("C");
-        graph.addNode("B");
-        graph.addNode("D");
-        graph.addNode("E");
-        graph.addEdge("A", "B", 3);
-        graph.addEdge("A", "D", 2);
-        graph.addEdge("A", "C", 4);
-        graph.addEdge("C", "D", 1);
-        graph.addEdge("B", "E", 9);
-        graph.addEdge("D", "E", 5);
+        for(int i = 0; i < 26; i++){
+            graph.addNode("" + ((char)(65 + i)) + "");
+        }
+        for(int i = 1; i <= 40; i++){
+            graph.addEdge("" + ((char)(65 + Math.random() * 26)) + "", "" + ((char)(65 + Math.random() * 26)) + "", (int)Math.random() * 10);
+        }
         graph.printShortestPath("A", "E");
     }
 }
